@@ -1,4 +1,5 @@
 
+# only linux
 /usr/bin/setxkbmap -option "caps:swapescape"
 
 setopt correct
