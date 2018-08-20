@@ -24,7 +24,6 @@ set guioptions-=T
 "packages --------------------------------------------------------------------
 " Note: Skip initialization for vim-tiny or vim-small.
 if 0 | endif
-
 if &compatible
   set nocompatible               " Be iMproved
 endif
@@ -38,8 +37,10 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 "---------------------------------
+
 "neobundle 
 
+NeoBundle 'simeji/winresizer' 
 
 "非同期処理
 NeoBundle 'Shougo/vimproc', {
