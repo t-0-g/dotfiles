@@ -1,6 +1,6 @@
 set number
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set autoindent
 set cursorline
 set laststatus=2
@@ -14,15 +14,18 @@ set ignorecase
 set hlsearch
 set belloff=all
 set backspace=indent,eol,start
+set expandtab
+
+
 syntax on 
 colorscheme molokai
 set t_Co=256 
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 set guioptions-=T
 
+let g:calendar_google_calendar = 1
 
 "packages --------------------------------------------------------------------
-" Note: Skip initialization for vim-tiny or vim-small.
 if 0 | endif
 if &compatible
   set nocompatible               " Be iMproved
@@ -97,10 +100,18 @@ nmap <silent> vsh :<C-u>VimShell<CR>
 " NERDTree
 NeoBundle 'scrooloose/nerdtree'
 
+NeoBundle 'fatih/vim-go'
+
+NeoBundle 'itchyny/calendar.vim'
+
+" vue
+NeoBundle 'posva/vim-vue'
+
 "-------------------------------
 call neobundle#end()
 " Required:
 filetype plugin indent on
+
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck

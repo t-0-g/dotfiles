@@ -1,5 +1,3 @@
-
-
 setopt correct
 setopt prompt_subst
 setopt no_beep
@@ -22,12 +20,12 @@ setopt share_history
 setopt histignorealldups
 
 # prompt
-FACE='%(?.%F{cyan}%(!.#.)%f.%F{red}%(!.#.(ﾉд-｡%)))%f'
-PROMPT='%f%F{cyan}%n@%m:%F{white}[%F{cyan}%~%F{white}] %F{magenta}%*#%! $FACE
+FACE='%(?.%F{cyan}%(!.#.)%f.%F{magenta}%(!.#.(ﾉд-｡%)))%f'
+PROMPT='%F{cyan}%n:%F{white}[%F{cyan}%~%F{white}] %F{gray}%*#%! $FACE
 $ '
 
 SPROMPT='
-もしかして%F{red} %B%r%b %fではありませんか? [はい(y), いいえ(n)]:'
+ - %F{red}%B%r%b%f ? [y/n]:'
 RPROMPT=$'`branch-status-check`  ' # %~はpwd
 
 # git 
@@ -85,22 +83,56 @@ function get-branch-status {
         echo ${color} # 色だけ返す
 }
 # }}}
-
+#
 # alias
+alias ls="ls -G"
+alias ll="ls -lG"
+alias la="ls -aG"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias beep='echo $'\''\a'\'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
-alias l='ls -CF'
-alias la='ls -A'
-alias ll='ls -alF'
-alias ls='ls --color=auto'
 alias python=python3
 alias sl='sl -e'
 alias tree='tree -C'
 alias emacs='emacs -nw'
 alias e='emacs -nw'
+alias pip='pip3'
 
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$HOME/fabric/bin
+# vscode
+code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
+
+function peco-history-selection() {
+    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
+
+function peco-src () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N peco-src
+bindkey '^]' peco-src
+
+
+export JAVA_HOME=`/usr/libexec/java_home -v "11"`
+export GOPATH=$HOME/dev
+export PATH=$PATH:$HOME/.nodebrew/current/bin
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:${JAVA_HOME}/bin
+
+
+
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/t0g/.sdkman"
+[[ -s "/Users/t0g/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/t0g/.sdkman/bin/sdkman-init.sh"
