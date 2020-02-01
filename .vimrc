@@ -47,14 +47,10 @@ NeoBundle 'simeji/winresizer'
 
 "非同期処理
 NeoBundle 'Shougo/vimproc', {
-  \ 'build' : {
-  \     'windows' : 'make -f make_mingw32.mak',
-  \     'cygwin' : 'make -f make_cygwin.mak',
-  \     'mac' : 'make -f make_mac.mak',
-  \     'unix' : 'make -f make_unix.mak',
-  \    },
-  \ }
-
+\ 'build' : {
+\     'mac' : 'make',
+\    },
+\ }
 
 "オートコンプリート
 if has('lua')
@@ -107,10 +103,35 @@ NeoBundle 'itchyny/calendar.vim'
 " vue
 NeoBundle 'posva/vim-vue'
 
+" memolist
+NeoBundle 'glidenote/memolist.vim'
+nnoremap <leader>mn  :MemoNew<CR>
+nnoremap <leader>ml  :MemoList<CR>
+nnoremap <leader>mg  :MemoGrep<CR>
+let g:memolist_path = "~/workspace/memo"
+let g:memolist_memo_suffix = "md"
+let g:memolist_template_dir_path = "~/.vim/template/memolist"
+
+" previm
+NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'kannokanno/previm'
+NeoBundle 'tyru/open-browser.vim'
+au BufRead,BufNewFile *.md set filetype=markdown
+nnoremap <leader>pv  :PrevimOpen<CR>
+let g:previm_open_cmd = 'open -a Google\ Chrome'
+let g:vim_markdown_folding_disabled = 1
+
+" vim-commentary
+NeoBundle 'tpope/vim-commentary'
+
+" vim-ariline
+NeoBundle 'vim-airline/vim-airline'
+
 "-------------------------------
 call neobundle#end()
 " Required:
 filetype plugin indent on
+
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
