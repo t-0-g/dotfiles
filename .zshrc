@@ -131,8 +131,7 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:${JAVA_HOME}/bin
 
 
-
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/t0g/.sdkman"
 [[ -s "/Users/t0g/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/t0g/.sdkman/bin/sdkman-init.sh"
+
