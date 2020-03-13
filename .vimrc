@@ -1,4 +1,3 @@
-
 set number
 set tabstop=2
 set shiftwidth=2
@@ -6,7 +5,7 @@ set autoindent
 set cursorline
 set laststatus=2
 set wildmode=list:longest
-set noswapfile
+set noswapfile 
 set nobackup
 set showcmd
 set smartindent
@@ -19,120 +18,51 @@ set expandtab
 
 " UK配列は：がうちにくい
 nnoremap ; :
-
-syntax on 
-colorscheme molokai
-set t_Co=256 
-
 " Esc二回でハイライト解除
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 set guioptions-=T
 
-
-"packages --------------------------------------------------------------------
-if 0 | endif
-if &compatible
-  set nocompatible               " Be iMproved
+if has('vim_starting')
+  set rtp+=~/.vim/plugged/vim-plug
+  if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+    echo 'install vim-plug...'
+    call system('mkdir -p ~/.vim/plugged/vim-plug')
+    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+  end
 endif
 
-" Required:
-set runtimepath+=~/.vim/bundle/neobundle.vim/
+" plugin
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-plug', {'dir': '~/.vim/plugged/vim-plug/autoload'}
+Plug 'simeji/winresizer' 
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Townk/vim-autoclose'
+Plug 'pangloss/vim-javascript'
+Plug 'scrooloose/nerdtree'
+Plug 'fatih/vim-go'
+Plug 'itchyny/calendar.vim'
+Plug 'glidenote/memolist.vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'kannokanno/previm'
+Plug 'tyru/open-browser.vim'
+Plug 'tpope/vim-commentary'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'mattn/vim-lsp-icons'
+call plug#end()
 
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-"---------------------------------
-
-"neobundle 
-
-NeoBundle 'simeji/winresizer' 
-
-"非同期処理
-NeoBundle 'Shougo/vimproc', {
-\ 'build' : {
-\     'mac' : 'make',
-\    },
-\ }
-
-"オートコンプリート
-if has('lua')
-  NeoBundleLazy 'Shougo/neocomplete.vim', {
-    \ 'depends' : 'Shougo/vimproc',
-    \ 'autoload' : { 'insert' : 1,}
-    \ }
-endif
-" neocomplete {{{
-let g:neocomplete#enable_at_startup               = 1
-let g:neocomplete#auto_completion_start_length    = 3
-let g:neocomplete#enable_ignore_case              = 1
-let g:neocomplete#enable_smart_case               = 1
-let g:neocomplete#enable_camel_case               = 1
-let g:neocomplete#use_vimproc                     = 1
-let g:neocomplete#sources#buffer#cache_limit_size = 1000000
-let g:neocomplete#sources#tags#cache_limit_size   = 30000000
-let g:neocomplete#enable_fuzzy_completion         = 1
-let g:neocomplete#lock_buffer_name_pattern        = '\*ku\*'
-" }}}
-
-" 括弧の補完
-NeoBundle 'Townk/vim-autoclose'
-NeoBundleLazy 'tpope/vim-endwise', {
-  \ 'autoload' : { 'insert' : 1,}}
-
-" JavaScript用のカラープラグイン１
-NeoBundle 'pangloss/vim-javascript'
-
-" Vimshellを開く
-NeoBundleLazy 'Shougo/vimshell', {
-  \ 'depends' : 'Shougo/vimproc',
-  \ 'autoload' : {
-  \   'commands' : [{ 'name' : 'VimShell', 'complete' : 'customlist,vimshell#complete'},
-  \                 'VimShellExecute', 'VimShellInteractive',
-  \                 'VimShellTerminal', 'VimShellPop'],
-  \   'mappings' : ['<Plug>(vimshell_switch)']
-  \ }}
-
-" vimshell {{{
-nmap <silent> vsh :<C-u>VimShell<CR>
-
-" NERDTree
-NeoBundle 'scrooloose/nerdtree'
-
-NeoBundle 'fatih/vim-go'
-
-NeoBundle 'itchyny/calendar.vim'
-let g:calendar_google_calendar = 1
-
-" vue
-NeoBundle 'posva/vim-vue'
-
-" memolist
-NeoBundle 'glidenote/memolist.vim'
-nnoremap <leader>mn  :MemoNew<CR>
-nnoremap <leader>ml  :MemoList<CR>
-nnoremap <leader>mg  :MemoGrep<CR>
-let g:memolist_path = "~/workspace/memo"
-let g:memolist_memo_suffix = "md"
-let g:memolist_template_dir_path = "~/.vim/template/memolist"
-
-" previm
-NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'kannokanno/previm'
-NeoBundle 'tyru/open-browser.vim'
-au BufRead,BufNewFile *.md set filetype=markdown
-nnoremap <leader>pv  :PrevimOpen<CR>
-let g:previm_open_cmd = 'open -a Google\ Chrome'
-let g:vim_markdown_folding_disabled = 1
-
-" vim-commentary
-NeoBundle 'tpope/vim-commentary'
+" color
+syntax on 
+colorscheme molokai
+set t_Co=256 
 
 " vim-ariline
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
 set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -172,15 +102,22 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
 
+" Calendar
+let g:calendar_google_calendar = 1
 
-"-------------------------------
-call neobundle#end()
-" Required:
-filetype plugin indent on
+" memolist
+nnoremap <leader>mn  :MemoNew<CR>
+nnoremap <leader>ml  :MemoList<CR>
+nnoremap <leader>mg  :MemoGrep<CR>
+let g:memolist_path = "~/workspace/memo"
+let g:memolist_memo_suffix = "md"
+let g:memolist_template_dir_path = "~/.vim/template/memolist"
 
+" previm
+au BufRead,BufNewFile *.md set filetype=markdown
+nnoremap <leader>pv  :PrevimOpen<CR>
+let g:previm_open_cmd = 'open -a Google\ Chrome'
+let g:vim_markdown_folding_disabled = 1
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
 
 
