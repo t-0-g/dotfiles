@@ -7,7 +7,7 @@ set laststatus=2
 set wildmode=list:longest
 set noswapfile 
 set nobackup
-set showcmd
+set showcmd 
 set smartindent
 set showmatch
 set ignorecase
@@ -15,6 +15,7 @@ set hlsearch
 set belloff=all
 set backspace=indent,eol,start
 set expandtab
+set clipboard+=unnamed
 
 " UK配列は：がうちにくい
 nnoremap ; :
@@ -41,7 +42,6 @@ Plug 'Townk/vim-autoclose'
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdtree'
 Plug 'fatih/vim-go'
-Plug 'itchyny/calendar.vim'
 Plug 'glidenote/memolist.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'kannokanno/previm'
@@ -55,6 +55,8 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-lsp-icons'
+Plug 'junegunn/goyo.vim'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 " color
@@ -102,8 +104,6 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
 
-" Calendar
-let g:calendar_google_calendar = 1
 
 " memolist
 nnoremap <leader>mn  :MemoNew<CR>
@@ -119,5 +119,6 @@ nnoremap <leader>pv  :PrevimOpen<CR>
 let g:previm_open_cmd = 'open -a Google\ Chrome'
 let g:vim_markdown_folding_disabled = 1
 
-
-
+" gitgutter
+let g:gitgutter_highlight_lines = 1
+set updatetime=250
