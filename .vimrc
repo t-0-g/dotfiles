@@ -57,6 +57,9 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-lsp-icons'
 Plug 'junegunn/goyo.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'vimwiki/vimwiki'
+Plug 'lervag/vimtex'
 call plug#end()
 
 " color
@@ -120,5 +123,15 @@ let g:previm_open_cmd = 'open -a Google\ Chrome'
 let g:vim_markdown_folding_disabled = 1
 
 " gitgutter
-let g:gitgutter_highlight_lines = 1
-set updatetime=250
+" let g:gitgutter_highlight_lines = 1
+" set updatetime=250
+
+
+
+" vimwiki
+let g:vimwiki_list = [{'path':'~/vimwiki/', 'index':'index', 'ext':'.wiki'}]
+nnoremap <leader>wb  :Vimwiki2HTMLBrowse<CR>
+nnoremap <leader>wa :VimwikiAll2HTML<CR>
+
+
+
