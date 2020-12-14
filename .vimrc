@@ -133,5 +133,3 @@ let g:vimwiki_list = [{'path':'~/vimwiki/', 'index':'index', 'ext':'.wiki'}]
 nnoremap <leader>wb  :Vimwiki2HTMLBrowse<CR>
 nnoremap <leader>wa :VimwikiAll2HTML<CR>
 
-
-
